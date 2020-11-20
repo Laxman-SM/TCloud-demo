@@ -7,15 +7,11 @@ on:
     
 jobs:
   terraform-ci:
-    name: Terraform CI
-    strategy:
-      matrix:
-        env: 
-           practise
-           ARM_CLIENT_ID: ${{ secrets.az_client_id }}
-           ARM_CLIENT_SECRET: ${{ secrets.az_client_secret }}
-           ARM_SUBSCRIPTION_ID: ${{ secrets.az_subscription_id }}
-           ARM_TENANT_ID: ${{ secrets.az_tenant_id }}
+    env: 
+       ARM_CLIENT_ID: ${{ secrets.az_client_id }}
+       ARM_CLIENT_SECRET: ${{ secrets.az_client_secret }}
+       ARM_SUBSCRIPTION_ID: ${{ secrets.az_subscription_id }}
+       ARM_TENANT_ID: ${{ secrets.az_tenant_id }}
 
     runs-on: ubuntu-20.04
     
