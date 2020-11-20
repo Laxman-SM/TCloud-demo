@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      #version = ">= 2.26"
+      version = ">= 2.33.0"
     }
     random = {
       source = "hashicorp/random"
@@ -26,4 +26,8 @@ provider "azurerm" {
 }
 
 
+resource "azurerm_resource_group" "rg-tcloud-azure" {
+  name     = "rg-tcloud-azure"
+  location = "northcentralus"
+}
 
