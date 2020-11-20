@@ -16,7 +16,7 @@ jobs:
          ARM_SUBSCRIPTION_ID: ${{ secrets.az_subscription_id }}
          ARM_TENANT_ID: ${{ secrets.az_tenant_id }}
 
-      strategy:
+     /* strategy:
         matrix:
           env: [practice, development]
 
@@ -24,7 +24,7 @@ jobs:
     run:
       shell: bash
       working-directory: ./environments/azure/${{ matrix.env }}
-
+    */
     steps:
     - uses: actions/checkout@v2
     - uses: hashicorp/setup-terraform@v1.2.1
