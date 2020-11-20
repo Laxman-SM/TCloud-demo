@@ -28,13 +28,13 @@ jobs:
         cli_config_credentials_token: ${{ secrets.TF_TOKEN }}
         terraform_version: 0.13.5
       
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt -recursive -diff
-
     - name: Terraform Init
       id: init
       run: terraform init -no-color
+
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -recursive -dff
 
     - name: Terraform Validate
       id: validate
