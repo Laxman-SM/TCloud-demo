@@ -17,9 +17,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-
-    - name: Checkout
-      uses: actions/checkout@v2
     - uses: hashicorp/setup-terraform@v1.2.1
       with:
         cli_config_credentials_hostname: app.terraform.io
@@ -41,6 +38,7 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan -no-color && terraform show
+
       
     - uses: actions/github-script@0.9.0
       if: github.event_name == 'pull_request'
