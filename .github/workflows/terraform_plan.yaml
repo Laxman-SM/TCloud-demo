@@ -6,7 +6,8 @@ on:
     types: [opened, synchronize, reopened]
     
 jobs:
-  terraform-ci:
+
+  terraform:
     env: 
        ARM_CLIENT_ID: ${{ secrets.az_client_id }}
        ARM_CLIENT_SECRET: ${{ secrets.az_client_secret }}
@@ -15,10 +16,6 @@ jobs:
 
     runs-on: ubuntu-20.04
     
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./environments/azure/${{ matrix.env }}
     
     steps:
     - uses: actions/checkout@v2
@@ -27,14 +24,14 @@ jobs:
         cli_config_credentials_hostname: app.terraform.io
         cli_config_credentials_token: ${{ secrets.TF_TOKEN }}
         terraform_version: 0.13.5
-      
+    
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -recursive  
+
     - name: Terraform Init
       id: init
       run: terraform init -no-color
-
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt -recursive -dff
 
     - name: Terraform Validate
       id: validate
