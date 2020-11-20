@@ -3,22 +3,22 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master ]
+    types: [opened, synchronize, reopened]
     
 jobs:
 
-  Terraform-Plan:
+  Terraform:
     - name: Terraform
+      runs-on: ubuntu-20.04
+      env:
+        ARM_CLIENT_ID: ${{ secrets.az_client_id }}
+        ARM_CLIENT_SECRET: ${{ secrets.az_client_secret }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.az_subscription_id }}
+        ARM_TENANT_ID: ${{ secrets.az_tenant_id }}
+
       strategy:
         matrix:
           env: [practice, development]
-    env:
-       ARM_CLIENT_ID: ${{ secrets.az_client_id }}
-       ARM_CLIENT_SECRET: ${{ secrets.az_client_secret }}
-       ARM_SUBSCRIPTION_ID: ${{ secrets.az_subscription_id }}
-       ARM_TENANT_ID: ${{ secrets.az_tenant_id }}
-
-    runs-on: ubuntu-20.04
 
     defaults:
     run:
@@ -35,7 +35,7 @@ jobs:
       
     - name: Terraform fmt
       id: fmt
-      run: terraform fmt -recursive
+      run: terraform fmt -recursive -diff
 
     - name: Terraform Init
       id: init
@@ -49,8 +49,32 @@ jobs:
       id: plan
       run: terraform plan -no-color
 
-      
-    - uses: actions/github-script@0.9.0
+    - name: remove old comment
+      id: remove_old_comment
+      uses: actions/github-script@0.9.0
+      if: github.event_name == 'pull_request'
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          opts = github.issues.listComments.endpoint.merge({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            per_page: 100,
+          })
+          const comments = await github.paginate(opts)
+          for(const comment of comments) {
+            if (comment.user.login === "github-actions[bot]" && comment.body.startsWith("#### Terraform Format and Style")) {
+              github.issues.deleteComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: comment.id,
+              })
+            }
+          }
+
+    - name: show plan  
+      uses: actions/github-script@0.9.0
       if: github.event_name == 'pull_request'
       env:
         PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
@@ -78,11 +102,15 @@ jobs:
             body: output
           })
             
-    - name: Terraform Plan Status
-      if: steps.plan.outcome == 'failure'
-      run: exit 1  
+    - name: Check on failure
+      if: steps.plan.outcome == 'failure' || steps.fmt.outcome == 'failure' || steps.plan.outcome == 'failure'
+      run: |
+        echo ${{ steps.validate.outputs.status }} 
+        echo ${{ steps.fmt.outputs.status }}
+        echo ${{ steps.plan.outputs.status }}
+        exit 1
 
-    - name: Terraform Apply
+    - name: Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -auto-approve
    
