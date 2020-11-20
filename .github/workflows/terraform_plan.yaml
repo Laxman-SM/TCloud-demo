@@ -26,7 +26,6 @@ jobs:
     - name: Terraform fmt
       id: fmt
       run: terraform fmt -recursive
-      working-directory: ${{ github.workspace }}/terraform
 
     - name: Terraform Init
       id: init
