@@ -13,8 +13,18 @@ jobs:
         ARM_CLIENT_SECRET: ${{ secrets.az_client_secret }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.az_subscription_id }}
         ARM_TENANT_ID: ${{ secrets.az_tenant_id }}
-    runs-on: ubuntu-20.04
     
+    - name: Terraform
+      strategy:
+        matrix:
+          env: [practice, development]
+
+    runs-on: ubuntu-20.04
+    defaults:
+    run:
+      shell: bash
+      working-directory: ./environments/azure/${{ matrix.env }}
+
     steps:
     - uses: actions/checkout@v2
     - uses: hashicorp/setup-terraform@v1.2.1
@@ -47,8 +57,10 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          const output = `#### Terraform Format and Style 🖌\`${{ matrix.env  }}\`
+          #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}\`
           #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
           
           <details><summary>GitHub Plan</summary>
@@ -57,15 +69,20 @@ jobs:
 
           </details>
 
-          /* *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
           github.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: output
-          }) */
+          })
             
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
       run: exit 1  
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: terraform apply -auto-approve
+   
