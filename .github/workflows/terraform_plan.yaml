@@ -37,7 +37,7 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color && terraform show
+      run: terraform plan -no-color
 
       
     - uses: actions/github-script@0.9.0
