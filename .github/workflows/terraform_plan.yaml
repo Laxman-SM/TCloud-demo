@@ -10,7 +10,7 @@ jobs:
     name: Terraform CI
     strategy:
       matrix:
-        env: [practice, development]
+        env: [development]
            ARM_CLIENT_ID: ${{ secrets.az_client_id }}
            ARM_CLIENT_SECRET: ${{ secrets.az_client_secret }}
            ARM_SUBSCRIPTION_ID: ${{ secrets.az_subscription_id }}
