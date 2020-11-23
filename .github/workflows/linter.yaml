@@ -3,7 +3,7 @@
 ## Linter GitHub Actions ##
 ###########################
 ###########################
-name: Linting-Code
+name: Linting-code
 
 #
 # Documentation:
