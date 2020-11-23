@@ -1,10 +1,7 @@
 ---
 name: Checkov-Analysis
 on:
-  push:
-    branches:
-      - [feature, master]
-    types: [opened, synchronize, reopened]    
+  push: master
 jobs:
   checkov-job:
     runs-on: ubuntu-20.04
