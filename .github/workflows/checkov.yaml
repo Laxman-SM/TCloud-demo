@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-     
+       
       - name: Run Checkov Action
         id: checkov
         uses: bridgecrewio/checkov-action@master
@@ -20,10 +20,12 @@ jobs:
           skip_check: CKV_AWS_1 # optional: skip a specific check_id
           quiet: true # optional: display only failed checks
           framework: terraform # optional: run only on a specific infrastructure {cloudformation, terraform, kubernetes, all}
-     
   Linting-Code:
-     - name: Terraform Linter
-       uses: docker://github/super-linter:v2.1.1
-       env:
+    needs: checkov-job
+    runs-on: ubuntu-20.04
+    steps:  
+      - name: Terraform Linter
+        uses: docker://github/super-linter:v2.1.1
+        env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_TERRAFORM: true 
