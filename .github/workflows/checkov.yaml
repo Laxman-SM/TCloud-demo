@@ -1,7 +1,9 @@
 ---
 name: Checkov-Analysis
 on:
-  push: master
+  push:
+    branches:
+      - feature
 jobs:
   checkov-job:
     runs-on: ubuntu-20.04
