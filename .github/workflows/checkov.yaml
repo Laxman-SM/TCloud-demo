@@ -3,11 +3,10 @@ name: Checkov-Analysis
 on:
   push:
     branches:
-      - [feature, master]
-    types: [opened, synchronize, reopened]    
+      - feature
 jobs:
   checkov-job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: Checkov-action
     steps:
       - name: Checkout Repo
@@ -22,12 +21,8 @@ jobs:
           quiet: true # optional: display only failed checks
           framework: terraform # optional: run only on a specific infrastructure {cloudformation, terraform, kubernetes, all}
 
-  Linting-Code:
-    needs: checkov-job
-    runs-on: ubuntu-20.04
-    steps:  
       - name: Terraform Linter
         uses: docker://github/super-linter:v2.1.1
         env:
-          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_ALL_CODEBASE: false
           VALIDATE_TERRAFORM: true 

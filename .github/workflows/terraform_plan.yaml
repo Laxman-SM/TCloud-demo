@@ -1,8 +1,12 @@
 name: CI
 on:
   push:
-    branches: [ master ]
+    branches:
+      - feature
+      - master  
   pull_request:
+    branches:
+      - master
     types: [opened, synchronize, reopened]
     
 jobs:
@@ -36,8 +40,8 @@ jobs:
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
-
-    - name: Terraform Plan
+      
+      - name: Terraform Plan
       id: plan
       run: terraform plan -no-color
 
