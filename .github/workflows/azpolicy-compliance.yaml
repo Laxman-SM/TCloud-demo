@@ -1,4 +1,4 @@
-Name: az-polict-compilance-check
+name: az-polict-compilance-check
 on: 
   push:
     branches:
