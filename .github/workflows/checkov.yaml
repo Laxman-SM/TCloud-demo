@@ -1,5 +1,5 @@
 ---
-name: Checkov Terraform Security Analysis
+name: Checkov-Analysis
 on:
   push:
     branches:
