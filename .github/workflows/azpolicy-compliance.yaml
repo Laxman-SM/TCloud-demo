@@ -6,6 +6,7 @@ on:
     branches:
       - master
 
+
 jobs:
   assess-policy-compliance:    
     runs-on: ubuntu-latest

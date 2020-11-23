@@ -14,7 +14,7 @@ jobs:
        
       - name: Run Checkov Action
         id: checkov
-        uses: bridgecrewio/checkov-action@sha256:3b4bcbdb0bb6e946009a0ab40a3f1456288d5aea6abb4adca3fae7b07fc10541
+        uses: bridgecrewio/checkov-action@sha256:e44d4fa1caa5a3921cacd1bd579fb181b0660db6
         with:
           directory: /
           skip_check: CKV_AWS_1 # optional: skip a specific check_id
