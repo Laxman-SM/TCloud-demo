@@ -15,7 +15,6 @@ jobs:
        ARM_TENANT_ID: ${{ secrets.az_tenant_id }}
 
     runs-on: ubuntu-20.04
-    needs: [Checkov-Analysis, Linting-Code]
 
     
     steps:
