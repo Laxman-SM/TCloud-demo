@@ -21,8 +21,6 @@ jobs:
           quiet: true # optional: display only failed checks
           framework: terraform # optional: run only on a specific infrastructure {cloudformation, terraform, kubernetes, all}
 
-    runs-on: ubuntu-latest
-    steps:  
       - name: Terraform Linter
         uses: docker://github/super-linter:v2.1.1
         env:
