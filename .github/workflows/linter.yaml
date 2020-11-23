@@ -3,7 +3,7 @@
 ## Linter GitHub Actions ##
 ###########################
 ###########################
-name: Lint Terraform
+name: Linting-Code
 
 #
 # Documentation:
@@ -15,7 +15,7 @@ name: Lint Terraform
 #############################
 on:
   push:
-    branches: [ master ]
+    branches: [ feature ]
 
 ###############
 # Set the Job #
@@ -25,7 +25,7 @@ jobs:
     # Name the Job
     name: Lint Terraform
     # Set the agent to run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     ##################
     # Load all steps #
@@ -36,12 +36,12 @@ jobs:
       ##########################
       - name: Checkout Code
         uses: actions/checkout@v2
-
+        needs: Checkov-Analysis 
       ################################
       # Run Linter against code base #
       ################################
       - name: Terraform Linter
         uses: docker://github/super-linter:v2.1.1
         env:
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_TERRAFORM: true
