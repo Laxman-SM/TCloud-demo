@@ -22,5 +22,5 @@ jobs:
       with:
         scopes: |
           /subscriptions/8534e7bb-0c6b-4358-9861-7e972e81a5ea/resourceGroups/rg-tcloud-azure            
-        scopes-ignore: |
-          /subscriptions/8534e7bb-0c6b-4358-9861-7e972e81a5ea/resourceGroups/rg-tcloud-azure/providers/Microsoft.Web/sites/demoApp
+        #scopes-ignore: |
+        #  /subscriptions/8534e7bb-0c6b-4358-9861-7e972e81a5ea/resourceGroups/rg-tcloud-azure/providers/Microsoft.Web/sites/demoApp
