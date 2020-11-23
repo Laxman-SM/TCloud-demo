@@ -21,8 +21,6 @@ jobs:
           quiet: true # optional: display only failed checks
           framework: terraform # optional: run only on a specific infrastructure {cloudformation, terraform, kubernetes, all}
 
-  Linting-Code:
-    needs: checkov-job
     runs-on: ubuntu-latest
     steps:  
       - name: Terraform Linter
