@@ -46,7 +46,7 @@ resource "azurerm_subnet" "internal" {
   service_endpoints = ["Microsoft.Storage"]
 }
 
-resource "azurerm_storage_account" "example" {
+resource "azurerm_storage_account" "tfstorage" {
   name                     = "tfendpint"
   location                 = azurerm_resource_group.rg-tcloud-azure.location
   resource_group_name      = azurerm_resource_group.rg-tcloud-azure.name
