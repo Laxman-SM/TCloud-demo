@@ -25,7 +25,7 @@ provider "azurerm" {
   features {}
 }
 
-
+/**
 resource "azurerm_resource_group" "rg-tcloud-azure" {
   name     = "rg-tcloud-azure"
   location = "northcentralus"
@@ -46,5 +46,5 @@ resource "azurerm_subnet" "internal" {
   service_endpoints = ["Microsoft.Storage"]
 }
 
-
+**/
 
