@@ -6,7 +6,7 @@ on:
       - feature
 jobs:
   checkov-job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: Checkov-action
     steps:
       - name: Checkout Repo
@@ -23,7 +23,7 @@ jobs:
 
   Linting-Code:
     needs: checkov-job
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:  
       - name: Terraform Linter
         uses: docker://github/super-linter:v2.1.1
