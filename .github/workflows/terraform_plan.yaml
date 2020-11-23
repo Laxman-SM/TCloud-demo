@@ -24,7 +24,7 @@ jobs:
         cli_config_credentials_hostname: app.terraform.io
         cli_config_credentials_token: ${{ secrets.TF_TOKEN }}
         terraform_version: 0.13.5
-      usages: [Checkov-Analysis, Linting-Code]  
+      needs: [Checkov-Analysis, Linting-Code]  
     
     - name: Terraform fmt
       id: fmt
