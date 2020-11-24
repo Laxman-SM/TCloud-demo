@@ -55,8 +55,17 @@ resource "azurerm_subnet" "internal" {
 #  version = "4.0.0"
 #}
 
+variable "environment" {
+  default = "development"
+  }
+
+variable "location" {
+  default = "northcentralus"
+  }
+
+
 resource "azurerm_resource_group" "rg" {
-  name     = "tf-ref-${var.environment}-rg"
+  name     = "tf-var.environment-rg"
   location = var.location
 }
 
