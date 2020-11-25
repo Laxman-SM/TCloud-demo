@@ -79,7 +79,7 @@ resource "azurerm_resource_group" "vnet" {
   count    = length(var.location)
 }
 
-resource "azurerm_virtual_network" "aks" {
+resource "azurerm_virtual_network" "vnet" {
   count               = length(var.location)
   name                = "vnet-${count.index}"
   address_space       = [element(var.vnet_address_space, count.index)]
