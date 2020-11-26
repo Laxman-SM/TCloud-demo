@@ -1,8 +1,3 @@
-##
-# Terraform repo .gitignore
-# Source: https://github.com/github/gitignore/blob/master/Terraform.gitignore
-##
-
 # Local .terraform directories
 **/.terraform/*
 
@@ -18,6 +13,7 @@ crash.log
 # version control.
 #
 # example.tfvars
+*.tfvars
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
@@ -32,3 +28,8 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+*-plan
+*plan
+
+# Ignore shell script which may contain secrets for authN
+devscript.sh
