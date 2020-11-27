@@ -36,7 +36,6 @@ module "policy_assignments" {
 
 module "policy_definitions" {
   source = "./modules/policy-definitions"
-
 }
 
 
