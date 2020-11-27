@@ -87,3 +87,4 @@ data "azurerm_policy_definition" "builtin_policies_data_protection_governance" {
   count        = length(var.builtin_policies_data_protection_governance)
   display_name = var.builtin_policies_data_protection_governance[count.index]
 }
+
