@@ -68,7 +68,8 @@ variable "builtin_policies_data_protection_governance" {
     "Azure Backup should be enabled for Virtual Machines",
     "Long-term geo-redundant backup should be enabled for Azure SQL Databases",
     "Audit virtual machines without disaster recovery configured",
-    "Key Vault objects should be recoverable"
+    "Key vault should have purge protection enabled",
+    "Key vault should have soft delete enabled"
   ]
 }
 
@@ -86,3 +87,4 @@ data "azurerm_policy_definition" "builtin_policies_data_protection_governance" {
   count        = length(var.builtin_policies_data_protection_governance)
   display_name = var.builtin_policies_data_protection_governance[count.index]
 }
+
