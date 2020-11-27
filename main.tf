@@ -8,7 +8,7 @@ terraform {
   }
 
   backend "remote" {
-    hostname     = "app.terraform.io"
+    hostname = "app.terraform.io"
     organization = "vystmo-inc"
 
     workspaces {
@@ -18,7 +18,7 @@ terraform {
 }
 
 provider "azurerm" {
-  skip_provider_registration = true
+  skip_provider_registration = "true"
   features {}
 }
 
@@ -34,7 +34,6 @@ module "policy_assignments" {
 
 module "policy_definitions" {
   source = "./modules/policy-definitions"
-
 }
 
 module "policyset_definitions" {
@@ -225,6 +224,5 @@ module "policyset_definitions" {
       policyID = module.policy_definitions.auditLockOnNetworking_policy_id
     }
   ]
+
 }
-
-
