@@ -18,17 +18,9 @@ terraform {
 }
 
 provider "azurerm" {
-  skip_provider_registration = "true"
+  skip_provider_registration = true
   features {}
 }
-
-/*   
-  skip_provider_registration = true
-  tenant_id       = "your tenant id"
-  subscription_id = "your subscription id"
-  client_id       = "your service principal appId"
-  client_secret   = "your service principal password" 
-*/
 
 module "policy_assignments" {
   source = "./modules/policy-assignments"
