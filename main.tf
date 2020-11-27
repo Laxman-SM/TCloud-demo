@@ -45,6 +45,14 @@ module "policy_definitions" {
 
 }
 
+resource "azurerm_subnet" "internal" {
+  name                 = "internal"
+  resource_group_name  = azurerm_resource_group.rg-tcloud-azure.name
+  virtual_network_name = azurerm_virtual_network.azcloud.name
+  address_prefixes     = ["10.0.2.0/24"]
+  service_endpoints = ["Microsoft.Storage"]
+}
+  
 module "policyset_definitions" {
   source = "./modules/policyset-definitions"
 
@@ -234,5 +242,3 @@ module "policyset_definitions" {
     }
   ]
 }
-
-
